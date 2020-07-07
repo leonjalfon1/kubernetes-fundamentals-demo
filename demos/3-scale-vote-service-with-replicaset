@@ -1,0 +1,52 @@
+# Demo 03: Scale the vote-service using ReplicaSets
+
+- Scale the vote-service to 3 using a ReplicaSet
+
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: vote
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vote
+  template:
+    metadata:
+      labels:
+        app: vote
+    spec:
+      containers:
+      - image: leonjalfon1/k8s-demo-vote:latest
+        name: vote
+        ports:
+        - containerPort: 80
+EOF
+```
+
+- Ensure that a new replicaset was created
+
+```
+kubectl get rs
+```
+
+- Ensure that new pods were created (note that you will get a total of 3 pods, the replicaset will add 2 additional pods)
+
+```
+kubectl get pods
+```
+
+- Delete the pod created previously
+
+```
+kubectl delete pod vote
+```
+
+- Ensure that a new pod was created
+
+```
+kubectl get pods
+```
+

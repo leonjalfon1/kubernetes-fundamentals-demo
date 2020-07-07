@@ -1,0 +1,25 @@
+# Demo 01: Running the vote-service with docker
+
+- Move to the vote-service directory
+
+```
+cd ./services/vote
+```
+
+- Build the vote-service image
+
+```
+docker build -t leonjalfon1/k8s-demo-vote:latest .
+```
+
+- Run the image localy
+
+```
+docker run -p 5000:80 leonjalfon1/k8s-demo-vote:latest
+```
+
+- Browse to the vote portal
+
+```
+http://localhost:5000
+```

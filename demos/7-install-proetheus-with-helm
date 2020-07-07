@@ -1,0 +1,49 @@
+# Demo 07: Install Prometheus with Helm
+
+- Create a monitoring namespace
+
+```
+kubectl create namespace monitoring
+```
+
+- Install prometheus with helm
+
+```
+helm install prometheus -n monitoring stable/prometheus
+```
+
+- List helm releases
+
+```
+helm ls -n monitoring
+```
+
+- Inspect deployment resources
+
+```
+kubectl get all -n monitoring
+```
+
+- Retrieve the pod name of the prometheus server (web portal)
+
+```
+kubectl get pods -n monitoring -l "component=server"
+```
+
+- Start a proxy to access a ClusterIP service from outside the cluster:
+
+```
+kubectl port-forward <POD_NAME> --namespace monitoring 9090:9090
+```
+
+- Access to the prometheus portal from the browser
+
+```
+http://localhost:9090
+```
+
+- Delete the prometheus workload
+
+```
+helm delete -n monitoring prometheus
+```

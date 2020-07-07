@@ -1,0 +1,25 @@
+# Demo 06: Deploy the missing components
+
+- Deploy the missing components by run
+
+```
+kubectl apply -f ./demos/missing-components.yaml
+```
+
+- Inspect the current cluster pods and wait until the creation is complete
+
+```
+kubectl get pods -w
+```
+
+- Browse to the vote portal
+
+```
+http://<external-ip>:5000
+```
+
+- Browse to the result portal
+
+```
+http://<external-ip>:5001
+```

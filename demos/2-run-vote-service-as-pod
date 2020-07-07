@@ -1,0 +1,35 @@
+# Demo 02: Running the vote-service as Pod
+
+- Deploy the vote-service as pod with the following command
+
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vote
+  labels:
+    app: vote
+spec:
+  containers:
+  - image: leonjalfon1/k8s-demo-vote:latest
+    name: vote
+    ports:
+    - containerPort: 80
+      name: vote
+EOF
+```
+
+- Check that the pod was created
+
+```
+kubectl get pods
+```
+
+- Inspect the pod logs
+
+```
+kubectl logs vote
+```
+
+- Note that you can't access the app until you expose it using a service

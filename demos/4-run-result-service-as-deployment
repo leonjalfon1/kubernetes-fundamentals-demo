@@ -1,0 +1,48 @@
+# Demo 04: Run the result-service using ReplicaSets
+
+- Deploy the result-service as deployment with the following command:
+
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result
+  labels:
+    app: result
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: result
+  template:
+    metadata:
+      labels:
+        app: result
+    spec:
+      containers:
+      - name: result
+        image: leonjalfon1/k8s-demo-result:latest
+        ports:
+        - containerPort: 80
+          name: result
+EOF
+```
+
+- Ensure that a new deployment was created
+
+```
+kubectl get deployments
+```
+
+- Check that a new replicaset was created
+
+```
+kubectl get rs
+```
+
+- Ensure that new pods were created
+
+```
+kubectl get pods
+```

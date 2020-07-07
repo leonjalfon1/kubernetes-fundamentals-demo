@@ -1,0 +1,57 @@
+# Demo 05: Expose the services using a LoadBalancer
+
+- Create a service for the vote-service with the following command:
+
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote
+  labels:
+    apps: vote
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 5000
+      targetPort: 80
+      name: vote-service
+  selector:
+    app: vote
+EOF
+```
+
+- Create a service for the result-service with the following command:
+
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Service
+metadata:
+  name: result
+  labels:
+    apps: result
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 5001
+      targetPort: 80
+      name: result-service
+  selector:
+    app: result
+EOF
+```
+
+- Wait until the LoadBalancer is ready
+
+```
+kubectl get services -w
+```
+
+- Browse to the vote portal
+
+```
+http://<external-ip>:5000
+```
+
+- Refresh the browser several times to see how the kubernetes load balancer works
